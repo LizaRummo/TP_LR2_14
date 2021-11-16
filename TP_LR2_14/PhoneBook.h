@@ -10,6 +10,8 @@ public:
 	PhoneBook() : numb(0), pointer(nullptr) {}
 	PhoneBook(int _numb, Note* _pointer) : numb(_numb), pointer(_pointer) {}
 	~PhoneBook() { delete[] pointer; }
+	PhoneBook& operator=(const PhoneBook&);
+	PhoneBook& operator++();
 
 	void add_note();
 	void del_note(int del_numb);

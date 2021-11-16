@@ -7,12 +7,18 @@ using namespace std;
 
 PhoneBook pb;
 
+string in(string str) {
+	do {
+		getline(cin, str);
+	} while (str.empty());
+	return str;
+}
+
 //проверка для ввода, допускаются - и .
 string checkNames(string input) {	
 	string buf = "", res = "";
 	while (true) {
 		int length = 0, ctr_err = 0;
-		//getline(cin, input);
 		int first_letter = NULL, find_numb = 0;
 		length = input.length();
 		for (int i = 0; i <= length; i++) {
@@ -42,10 +48,42 @@ string checkNumber(string input) {
 	string buf = "", res = "";
 	while (true) {
 		int length = 0, ctr_err = 0;
-		//getline(cin, input);
 		int first_numb = NULL, find_err = 0;
 		length = input.length();
 		for (int i = 0; i <= length; i++) {
+			if (input[i] < '0' || input[i] > '9' ||
+				input[i] == '\0' || input[i] == '\n') {
+				if (!find_err) {
+					buf.assign(input, first_numb, i - (res.length() + ctr_err));
+					res += buf;
+					first_numb = NULL;
+					find_err = 1;
+					ctr_err++;
+				}
+			}
+			else
+				if (find_err) {
+					first_numb = i;
+					find_err = 0;
+				}
+		}
+		return res;
+	}
+
+}
+//проверка для ввода номера (учитывая ввод +7 или 8)
+string checkPhone(string input) {
+	string buf = "", res = "";
+	while (true) {
+		int length = 0, ctr_err = 0;
+		int first_numb = NULL, find_err = 0;
+		length = input.length();
+		int plus=0;
+		if (input[0] == '+') {
+			//res += input[0];
+			plus = 1;
+		}
+		for (int i = 0+plus; i <= length; i++) {
 			if (input[i] < '0' || input[i] > '9' ||
 				input[i] == '\0' || input[i] == '\n') {
 				if (!find_err) {
@@ -90,11 +128,16 @@ bool correctDate(string _day, string _month, string _year) {
 
 int selection(int first, int last) {
 	int input;
+	string buf;
 	while (true) {
 		try
 		{
-			cin >> input;
-			if (!(cin.fail() || input < first || input > last)) return input;
+			buf = in(buf);
+			buf = checkNumber(buf);
+			input = stoi(buf);
+			//cin >> input;
+			if (!(cin.fail() || input < first || input > last)) 
+				return input;
 			else throw "Выбран отсутствующий пункт меню";
 		}
 		catch (const char*) {
@@ -106,9 +149,32 @@ int selection(int first, int last) {
 	return input;
 }
 
+void statusbar() {
+	cout << "PhoneBook"; 
+	cout << endl << endl;
+	//cout.width(30);
+	cout << "Содержится записей: ";
+	//cout.width(2);
+	cout << pb.getNumb() << endl;
+	if (pb.getNumb() > 0) {
+		Note* ptr = pb.getPointer();
+		int nb = pb.getNumb();
+		//cout.width(30);
+		cout << "Последняя запись: ";
+		cout.width(15);
+		cout << pb.getPointer()[pb.getNumb() - 1].getPhone();
+		//cout << ptr[nb - 1].getPhone();
+		cout << " " << pb.getPointer()[pb.getNumb() - 1].getName() << endl;
+		cout << "...";
+	}
+	cout << endl;
+	for (int i = 0; i < 99; i++) { cout << "—"; }
+	cout << endl;
+}
+
 void print_menu() {
-	//system("cls");
-	//statusbar();
+	system("cls");
+	statusbar();
 	//cout << "Главное меню" << endl;
 	cout << endl << "Выберите пункт меню:" << endl;
 	cout << "  1. Добавить" << endl;
@@ -123,11 +189,14 @@ void print_menu() {
 void menu() {
 	int point;
 	while (1) {
+		
 		print_menu();
 		switch (point = selection(0, 4)) {
 		case 1:
 		{
-			pb.add_note();
+			++pb;
+			//pb.add_note();
+			pb.sort_book();
 		}
 		break;
 		case 2:
@@ -163,6 +232,15 @@ void menu() {
 		case 4:
 		{
 			pb.output_book();
+			cout << "Посмотреть подробности записи: " << endl << "  [0 - пропустить]" << endl << "  >> ";
+			int number = selection(0, pb.getNumb());
+			if (number != 0) {
+				pb.getPointer()[number - 1].output_note_by_block();
+				cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
+				cin.get();
+			}
+					
+			//cin.get();
 		}
 		break;
 		case 0:

@@ -4,6 +4,37 @@ string checkNames(string input);
 string checkNumber(string input);
 bool correctDate(string _day, string _month, string _year);
 
+PhoneBook& PhoneBook::operator=(const PhoneBook& PB) {
+	if (this == &PB) return *this;
+
+	numb = PB.numb;
+
+	delete[] pointer;
+	pointer = new Note[PB.numb];
+	numb = PB.numb;
+	for (int i = 0; i < PB.numb; i++)
+		pointer[i] = PB.pointer[i];
+
+	return *this;
+}
+
+PhoneBook& PhoneBook::operator++()
+{
+	Note nt;
+	nt.input_note();
+	Note* buf = pointer;
+	numb++;
+
+	pointer = new Note[numb];
+	for (int i = 0; i < numb - 1; i++)
+	{
+		pointer[i] = buf[i];
+	}
+	pointer[numb - 1] = nt;
+	return *this;
+	// TODO: вставьте здесь оператор return
+}
+
 void PhoneBook::add_note() {
 	Note nt;
 	nt.input_note();
@@ -37,7 +68,7 @@ void PhoneBook::del_note(int del_numb) {
 }
 
 void PhoneBook::edit_note(int edit_numb) {
-	string _name, _phone, _day, _month, _year, empty = "";
+	string _name, _phone, _day, _month, _year, _comment, empty = "";
 	cout << "  [Редактирование данных абонента]" << endl << "    Номер телефона: ";
 	getline(cin, _phone);
 	getline(cin, _phone);
@@ -60,11 +91,15 @@ void PhoneBook::edit_note(int edit_numb) {
 		getline(cin, _year);
 		_year = checkNumber(_year);
 		if (_year == empty) _year = pointer[numb - 1].getYear();
-		if (!correctDate(_day, _month, _year)) { cout << "Повторите ввод всей даты. Текущее значение: " << _day << "." << _month << "." << _year << endl;}
+		if (!correctDate(_day, _month, _year)) { cout << "        Повторите ввод всей даты. Текущее значение: " << _day << "." << _month << "." << _year << endl;}
 	} while (!correctDate(_day, _month, _year));
 	pointer[numb - 1].setDay(_day);
 	pointer[numb - 1].setMonth(_month);
 	pointer[numb - 1].setYear(_year);
+	cout << "    Комментарий: ";
+	getline(cin, _comment);
+	_comment = checkNames(_comment);
+	if (_comment != empty)	pointer[numb - 1].setComment(_comment);
 }
 
 void PhoneBook::sort_book() {
@@ -81,9 +116,20 @@ void PhoneBook::sort_book() {
 }
 
 void PhoneBook::output_book() {
-	sort_book();
-	for (int i = 0; i <= numb - 1; i++) {
-		cout << " - Абонент " << i + 1 << ":" << endl;
-		pointer[i].output_note();
+	if (!numb) cout << "Телефонная книга пуста" << endl;
+	else {
+		sort_book();
+		cout << endl;
+		cout.width(3);
+		cout << "№" << "|";
+		cout.width(15);
+		cout << "Номер" << "|";
+		cout << " ФИО" << endl;
+		for (int i = 0; i <= numb - 1; i++) {
+			cout.width(3);
+			cout << i + 1 << "|";
+			pointer[i].output_note_by_table();
+		}
+		cout << endl;
 	}
 }
