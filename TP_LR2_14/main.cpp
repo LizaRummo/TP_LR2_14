@@ -144,7 +144,7 @@ int selection(int first, int last) {
 			cin.clear();
 			cerr << "Выбран отсутствующий пункт меню. Повтороите ввод" << endl << "> ";
 		}
-		cin.ignore(32767, '\n');
+		//cin.ignore(32767, '\n');
 	}
 	return input;
 }
@@ -182,6 +182,11 @@ void print_menu() {
 	cout << "  3. Изменить запись" << endl;
 	cout << "  4. Вывести полный список" << endl;
 	cout << "  ---" << endl;
+	cout << "  5. Сохранить в файл" << endl;
+	cout << "  6. Загрузить из файла" << endl;
+	cout << "  ---" << endl;
+	cout << "  7. Поиск по фамилии" << endl;
+	cout << "  ---" << endl;
 	cout << "  0. Выход из программы" << endl;
 	cout << "  >> ";
 }
@@ -191,7 +196,7 @@ void menu() {
 	while (1) {
 		
 		print_menu();
-		switch (point = selection(0, 4)) {
+		switch (point = selection(0, 7)) {
 		case 1:
 		{
 			++pb;
@@ -211,7 +216,8 @@ void menu() {
 			}
 			else cout << "Недостаточно записей для удаления" << endl;
 			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
-			cin.get(); cin.get();
+			cin.get(); 
+			//cin.get();
 		}
 		break;
 		case 3:
@@ -226,21 +232,31 @@ void menu() {
 			}
 			else cout << "Отмена редактирования" << endl;
 			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
-			cin.get(); cin.get();
+			cin.get(); 
+			//cin.get();
 		}
 		break;
 		case 4:
 		{
 			pb.output_book();
-			cout << "Посмотреть подробности записи: " << endl << "  [0 - пропустить]" << endl << "  >> ";
-			int number = selection(0, pb.getNumb());
-			if (number != 0) {
-				pb.getPointer()[number - 1].output_note_by_block();
-				cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
-				cin.get();
-			}
-					
-			//cin.get();
+			pb.details_note();
+		}
+		break;
+		case 5:
+		{
+			pb.export_book();
+		}
+		break;
+		case 6:
+		{
+			pb.import_book();
+		}
+		break;
+		case 7:
+		{
+			pb.find_note();
+			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
+			cin.get();
 		}
 		break;
 		case 0:
@@ -252,7 +268,7 @@ void menu() {
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	cout << "Добро пожаловать!" << endl;
+	//cout << "Добро пожаловать!" << endl;
 	menu();
 	return 0;
 }

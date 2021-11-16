@@ -18,6 +18,13 @@ public:
 	void edit_note(int edit_numb);
 	void sort_book();
 	void output_book();
+	void details_note();
+
+	void export_book();
+	//void export_book_2();
+	void import_book();
+
+	void find_note();
 
 	int getNumb() { return numb; }
 	Note* getPointer() { return pointer; }
