@@ -102,7 +102,6 @@ void PhoneBook::edit_note(int edit_numb) {
 	pointer[edit_numb - 1].setYear(_year);
 	cout << "    Комментарий: ";
 	getline(cin, _comment);
-	_comment = checkNames(_comment);
 	if (_comment != empty)	pointer[edit_numb - 1].setComment(_comment);
 }
 

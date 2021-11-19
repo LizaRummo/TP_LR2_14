@@ -57,7 +57,7 @@ void Note::input_note() {
 	setYear(_year);
 	cout << "    Комментарий: ";
 	getline(cin, _comment);
-	comment = checkNames(_comment);
+	comment = _comment;
 }
 
 void Note::output_note_by_block()
