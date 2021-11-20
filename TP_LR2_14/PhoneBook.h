@@ -12,6 +12,7 @@ public:
 	~PhoneBook() { delete[] pointer; }
 	PhoneBook& operator=(const PhoneBook&);
 	PhoneBook& operator++();
+	PhoneBook& operator-(int del_numb);
 
 	void add_note();
 	void del_note(int del_numb);

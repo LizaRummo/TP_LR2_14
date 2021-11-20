@@ -211,7 +211,8 @@ void menu() {
 				pb.output_book();
 				cout << "Удалить запись" << endl << "  >>";
 				int del_number = selection(1, pb.getNumb());
-				pb.del_note(del_number);
+				//pb.del_note(del_number);
+				pb - del_number;
 				cout << "Обновлённый список:" << endl;
 				pb.output_book();
 			}

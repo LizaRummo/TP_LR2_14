@@ -36,7 +36,24 @@ PhoneBook& PhoneBook::operator++()
 	}
 	pointer[numb - 1] = nt;
 	return *this;
-	// TODO: вставьте здесь оператор return
+}
+PhoneBook& PhoneBook::operator-(int del_numb) {
+	Note* s_buf;
+	s_buf = new Note[numb];
+	for (int i = 0; i < numb; i++)
+	{
+		s_buf[i] = pointer[i];
+	}
+	if (numb != 0) {
+		pointer = new Note[numb - 1];
+		for (int j = 0; j < numb - 1; j++)
+		{
+			if (j < del_numb - 1) pointer[j] = s_buf[j];
+			else pointer[j] = s_buf[j + 1];
+		}
+		numb--;
+	}
+	return *this;
 }
 
 void PhoneBook::add_note() {
