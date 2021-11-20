@@ -6,7 +6,6 @@ string checkNumber(string input);
 string checkPhone(string input);
 bool correctDate(string _day, string _month, string _year);
 
-//добавить проверки!
 void Note::input_note() {
 	string _name, _phone, _day, _month, _year, _comment, buf = "";
 	cout << endl << "  [Добавление абонента]" << endl;
