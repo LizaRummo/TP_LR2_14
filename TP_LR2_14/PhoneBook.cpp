@@ -119,24 +119,21 @@ void PhoneBook::sort_book() {
 }
 
 void PhoneBook::output_book() {
-	if (!numb) cout << "Телефонная книга пуста" << endl;
-	else {
-		sort_book();
-		cout << endl;
+	sort_book();
+	cout << endl;
+	cout.width(3);
+	cout << "№" << "|";
+	cout.width(15);
+	cout << "Номер" << "|";
+	cout << " ФИО" << endl;
+	for (int i = 0; i < 40; i++) { cout << "—"; }
+	cout << endl;
+	for (int i = 0; i <= numb - 1; i++) {
 		cout.width(3);
-		cout << "№" << "|";
-		cout.width(15);
-		cout << "Номер" << "|";
-		cout << " ФИО" << endl;
-		for (int i = 0; i < 40; i++) { cout << "—"; }
-		cout << endl;
-		for (int i = 0; i <= numb - 1; i++) {
-			cout.width(3);
-			cout << i + 1 << "|";
-			pointer[i].output_note_by_table();
-		}
-		cout << endl;
+		cout << i + 1 << "|";
+		pointer[i].output_note_by_table();
 	}
+	cout << endl;
 }
 
 void PhoneBook::details_note()
@@ -155,6 +152,7 @@ void PhoneBook::details_note()
 
 void PhoneBook::export_book() {
 		string file_name;
+		cout << endl;
 		cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
 		file_name = in(file_name);
 		while (1) {
@@ -220,6 +218,7 @@ void PhoneBook::export_book() {
 void PhoneBook::import_book()
 {
 	string file_name;
+	cout << endl;
 	cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
 	file_name = in(file_name);
 	while (1) {
@@ -235,7 +234,6 @@ void PhoneBook::import_book()
 	if (!fin.is_open())										// если файл не открыт
 		cout << "Файл не может быть открыт!" << endl;		// сообщить об этом
 	else {
-
 		while (!(fin.eof())/*||(buf!=empty)*/) {
 			string input, buf, empty = "";
 			string findCategory = " - ", findValue = ": ", findSep = ".";
@@ -269,11 +267,8 @@ void PhoneBook::import_book()
 						if (i == 2) {}
 						if (i == 3) { input = checkNumber(input); nt.setDay(input); input.clear(); }
 						if (i == 4) { input = checkNumber(input); nt.setMonth(input); input.clear(); }
-						if (i == 5) { input = checkNumber(input); 
-						nt.setYear(input); 
-						input.clear(); }
-						if (i == 6) { nt.setComment(input); 
-						input.clear(); }
+						if (i == 5) { input = checkNumber(input); nt.setYear(input); input.clear(); }
+						if (i == 6) { nt.setComment(input); input.clear(); }
 						//cout << endl;
 					}
 					Note* buf_ptr = getPointer();
@@ -295,6 +290,7 @@ void PhoneBook::import_book()
 
 void PhoneBook::find_note()
 {
+	cout << endl;
 	cout << "Введите фамилию для поиска: ";
 	string surname, to_find;
 	int pos = -2, find=0;
@@ -307,6 +303,24 @@ void PhoneBook::find_note()
 			pointer[i].output_note_by_block();
 			find++;
 		}
-		if (!find) cout << "Совпадений не найдено" << endl;
 	}
+	if (!find) cout << "Совпадений не найдено" << endl;
 }
+
+void PhoneBook::equalize_book()
+{
+	string correct = "+7", to_edit;
+	int find = 0;
+
+	for (int i = 0; i < numb; i++) {
+		to_edit = pointer[i].getPhone();
+		if (to_edit[0]=='8') {
+			to_edit.replace(0, 1, correct);
+			pointer[i].setPhone(to_edit);
+			find++;
+		}
+	}
+	if (!find) cout << "Ни одна запись не была изменена" << endl;
+	else cout << "Изменения применены" << endl;
+}
+

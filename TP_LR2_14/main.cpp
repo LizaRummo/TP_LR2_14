@@ -186,6 +186,7 @@ void print_menu() {
 	cout << "  6. Загрузить из файла" << endl;
 	cout << "  ---" << endl;
 	cout << "  7. Поиск по фамилии" << endl;
+	cout << "  8. 8 -> +7" << endl;
 	cout << "  ---" << endl;
 	cout << "  0. Выход из программы" << endl;
 	cout << "  >> ";
@@ -196,12 +197,12 @@ void menu() {
 	while (1) {
 		
 		print_menu();
-		switch (point = selection(0, 7)) {
+		switch (point = selection(0, 8)) {
 		case 1:
 		{
 			++pb;
 			//pb.add_note();
-			pb.sort_book();
+			//pb.sort_book();
 		}
 		break;
 		case 2:
@@ -215,6 +216,7 @@ void menu() {
 				pb.output_book();
 			}
 			else cout << "Недостаточно записей для удаления" << endl;
+			cout << endl;
 			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
 			cin.get(); 
 			//cin.get();
@@ -222,15 +224,19 @@ void menu() {
 		break;
 		case 3:
 		{
-			pb.output_book();
-			cout << "Редактировать запись" << endl << "  [0 - отмена редактирования]" << endl << "  >> ";
-			int number = selection(0, pb.getNumb());
-			if (number != 0) {
-				pb.edit_note(number);
-				cout << "Обновлённый список:" << endl;
+			if (pb.getNumb() > 0) {
 				pb.output_book();
+				cout << "Редактировать запись" << endl << "  [0 - отмена редактирования]" << endl << "  >> ";
+				int number = selection(0, pb.getNumb());
+				if (number != 0) {
+					pb.edit_note(number);
+					cout << "Обновлённый список:" << endl;
+					pb.output_book();
+				}
+				else cout << "Отмена редактирования" << endl;
 			}
-			else cout << "Отмена редактирования" << endl;
+			else cout << "Недостаточно записей для редактированя" << endl;
+			cout << endl;
 			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
 			cin.get(); 
 			//cin.get();
@@ -238,13 +244,25 @@ void menu() {
 		break;
 		case 4:
 		{
-			pb.output_book();
-			pb.details_note();
+			if (pb.getNumb() > 0) {
+				pb.output_book();
+				pb.details_note();
+			}
+			else cout << "Недостаточно записей для вывода" << endl;
+			cout << endl;
+			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
+			cin.get();
 		}
 		break;
 		case 5:
 		{
-			pb.export_book();
+			if (pb.getNumb() > 0) {
+				pb.export_book();
+			}
+			else cout << "Недостаточно записей для сохранения" << endl;
+			cout << endl;
+			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
+			cin.get();
 		}
 		break;
 		case 6:
@@ -254,7 +272,22 @@ void menu() {
 		break;
 		case 7:
 		{
-			pb.find_note();
+			if (pb.getNumb() > 0) {
+				pb.find_note();
+			}
+			else cout << "Недостаточно записей для поиска" << endl;
+			cout << endl;
+			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
+			cin.get();
+		}
+		break;
+		case 8:
+		{
+			if (pb.getNumb() > 0) {
+				pb.equalize_book();
+			}
+			else cout << "Недостаточно записей" << endl;
+			cout << endl;
 			cout << "Нажмите любую клавишу, чтобы продолжить..." << endl;
 			cin.get();
 		}

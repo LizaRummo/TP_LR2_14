@@ -21,7 +21,10 @@ void Note::input_note() {
 		else {
 			if (phone[0] == '+') plus = 1;
 			if (phone.length() > 11 + plus) 
-				cout << "        Номер содержит слишком большое колическтво символов для номера РФ" << endl << "        Повторите ввод." << endl;
+				cout << "        Номер содержит слишком большое количество символов для номера РФ" << endl << "        Повторите ввод." << endl;
+			else break;
+			if (phone.length() < 11 + plus)
+				cout << "        Номер содержит недостаточное количество символов для номера РФ" << endl << "        Повторите ввод." << endl;
 			else break;
 		}
 
@@ -63,10 +66,26 @@ void Note::input_note() {
 void Note::output_note_by_block()
 {
 	cout << "+" << endl;
-	cout << "|  Номер телефона: " << phone << endl;
-	cout << "|  ФИО: " << name << endl;
-	cout << "|  Дата рождения: " << date[0] << "." << date[1] << "." << date[2] << endl;
-	cout << "|  Комментарий: " << comment << endl;
+	cout << "|  Номер телефона: ";
+	if (phone != "") cout << phone;
+	else cout << "+7XXXXXXXXXX";
+	cout << endl;
+	cout << "|  ФИО: ";
+	if (name != "") cout << name;
+	else cout << "not set";
+	cout << endl;
+	cout << "|  Дата рождения: "; 
+	if (date[0] != "") cout << date[0];
+	else cout << "XX";
+	cout << ".";
+	if (date[1] != "") cout << date[1];
+	else cout << "XX";
+	cout << "."; 
+	if (date[2] != "") cout << date[2];
+	else cout << "XXXX";
+	cout << endl;
+	cout << "|  Комментарий: " << comment;
+	cout << endl;
 	cout << "+" << endl;
 }
 

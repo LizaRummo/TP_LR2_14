@@ -25,6 +25,7 @@ public:
 	void import_book();
 
 	void find_note();
+	void equalize_book();
 
 	int getNumb() { return numb; }
 	Note* getPointer() { return pointer; }
