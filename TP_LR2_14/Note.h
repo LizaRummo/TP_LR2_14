@@ -13,7 +13,6 @@ class Note
 public:
 	Note() :name("not set"), phone("not set"), date{"00","00","0000"}, comment(""){}
 	Note(string _name, string _phone, string _day, string _month, string _year, string _comment) :name(_name), phone(_phone), date{ _day, _month, _year }, comment(_comment) {}
-	//Note(int _day, int _month, int _year) : date{ _day, _month, _year } {}
 
 	~Note() {}
 
@@ -23,7 +22,6 @@ public:
 
 	string getName() { return name; }
 	string getPhone() { return phone; }
-	string getDate() { return *date; }
 	string getDay() { return date[0]; }
 	string getMonth() { return date[1]; }
 	string getYear() { return date[2]; }
@@ -31,7 +29,6 @@ public:
 
 	void setName(string _name) { this->name = _name; }
 	void setPhone(string _phone) { this->phone = _phone; }
-	void setDate(string _date) { this->date[0] = _date[0]; this->date[1] = _date[1]; this->date[2] = _date[2]; }
 	void setDay(string _day) { this->date[0] = _day; }
 	void setMonth(string _month) { this->date[1] = _month; }
 	void setYear(string _year) { this->date[2] = _year; }

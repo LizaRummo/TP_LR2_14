@@ -14,8 +14,6 @@ public:
 	PhoneBook& operator++();
 	PhoneBook& operator-(int del_numb);
 
-	void add_note();
-	void del_note(int del_numb);
 	void edit_note(int edit_numb);
 	void sort_book();
 	void output_book();

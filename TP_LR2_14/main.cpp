@@ -80,7 +80,6 @@ string checkPhone(string input) {
 		length = input.length();
 		int plus=0;
 		if (input[0] == '+') {
-			//res += input[0];
 			plus = 1;
 		}
 		for (int i = 0+plus; i <= length; i++) {
@@ -135,7 +134,6 @@ int selection(int first, int last) {
 			buf = in(buf);
 			buf = checkNumber(buf);
 			input = stoi(buf);
-			//cin >> input;
 			if (!(cin.fail() || input < first || input > last)) 
 				return input;
 			else throw "Выбран отсутствующий пункт меню";
@@ -144,7 +142,6 @@ int selection(int first, int last) {
 			cin.clear();
 			cerr << "Выбран отсутствующий пункт меню. Повтороите ввод" << endl << "> ";
 		}
-		//cin.ignore(32767, '\n');
 	}
 	return input;
 }
@@ -152,18 +149,14 @@ int selection(int first, int last) {
 void statusbar() {
 	cout << "PhoneBook"; 
 	cout << endl << endl;
-	//cout.width(30);
 	cout << "Содержится записей: ";
-	//cout.width(2);
 	cout << pb.getNumb() << endl;
 	if (pb.getNumb() > 0) {
 		Note* ptr = pb.getPointer();
 		int nb = pb.getNumb();
-		//cout.width(30);
 		cout << "Последняя запись: ";
 		cout.width(15);
 		cout << pb.getPointer()[pb.getNumb() - 1].getPhone();
-		//cout << ptr[nb - 1].getPhone();
 		cout << " " << pb.getPointer()[pb.getNumb() - 1].getName() << endl;
 		cout << "...";
 	}
@@ -175,7 +168,6 @@ void statusbar() {
 void print_menu() {
 	system("cls");
 	statusbar();
-	//cout << "Главное меню" << endl;
 	cout << endl << "Выберите пункт меню:" << endl;
 	cout << "  1. Добавить" << endl;
 	cout << "  2. Удалить" << endl;
@@ -201,8 +193,6 @@ void menu() {
 		case 1:
 		{
 			++pb;
-			//pb.add_note();
-			//pb.sort_book();
 		}
 		break;
 		case 2:
@@ -211,7 +201,6 @@ void menu() {
 				pb.output_book();
 				cout << "Удалить запись" << endl << "  >>";
 				int del_number = selection(1, pb.getNumb());
-				//pb.del_note(del_number);
 				pb - del_number;
 				cout << "Обновлённый список:" << endl;
 				pb.output_book();
@@ -302,7 +291,6 @@ void menu() {
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	//cout << "Добро пожаловать!" << endl;
 	menu();
 	return 0;
 }

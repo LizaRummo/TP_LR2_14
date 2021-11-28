@@ -15,13 +15,12 @@ PhoneBook& PhoneBook::operator=(const PhoneBook& PB) {
 
 	delete[] pointer;
 	pointer = new Note[PB.numb];
-	numb = PB.numb;
+	//numb = PB.numb;
 	for (int i = 0; i < PB.numb; i++)
 		pointer[i] = PB.pointer[i];
 
 	return *this;
 }
-
 PhoneBook& PhoneBook::operator++()
 {
 	Note nt;
@@ -38,54 +37,22 @@ PhoneBook& PhoneBook::operator++()
 	return *this;
 }
 PhoneBook& PhoneBook::operator-(int del_numb) {
-	Note* s_buf;
-	s_buf = new Note[numb];
+	Note* buf;
+	buf = new Note[numb];
 	for (int i = 0; i < numb; i++)
 	{
-		s_buf[i] = pointer[i];
+		buf[i] = pointer[i];
 	}
 	if (numb != 0) {
 		pointer = new Note[numb - 1];
 		for (int j = 0; j < numb - 1; j++)
 		{
-			if (j < del_numb - 1) pointer[j] = s_buf[j];
-			else pointer[j] = s_buf[j + 1];
+			if (j < del_numb - 1) pointer[j] = buf[j];
+			else pointer[j] = buf[j + 1];
 		}
 		numb--;
 	}
 	return *this;
-}
-
-void PhoneBook::add_note() {
-	Note nt;
-	nt.input_note();
-	Note* buf = pointer;
-	numb++;
-
-	pointer = new Note[numb];
-	for (int i = 0; i < numb - 1; i++)
-	{
-		pointer[i] = buf[i];
-	}
-	pointer[numb - 1] = nt;
-}
-
-void PhoneBook::del_note(int del_numb) {
-	Note* s_buf;
-	s_buf = new Note[numb];
-	for (int i = 0; i < numb; i++)
-	{
-		s_buf[i] = pointer[i];
-	}
-	if (numb != 0) {
-		pointer = new Note[numb - 1];
-		for (int j = 0; j < numb - 1; j++)
-		{
-			if (j < del_numb - 1) pointer[j] = s_buf[j];
-			else pointer[j] = s_buf[j + 1];
-		}
-		numb--;
-	}
 }
 
 void PhoneBook::edit_note(int edit_numb) {
