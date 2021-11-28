@@ -199,7 +199,7 @@ void menu() {
 		{
 			if (pb.getNumb() > 0) {
 				pb.output_book();
-				cout << "Удалить запись" << endl << "  >>";
+				cout << "Удалить запись" << endl << "  >> ";
 				int del_number = selection(1, pb.getNumb());
 				pb - del_number;
 				cout << "Обновлённый список:" << endl;

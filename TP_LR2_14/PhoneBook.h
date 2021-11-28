@@ -20,7 +20,7 @@ public:
 	void details_note();
 
 	void export_book();
-	//void export_book_2();
+	void export_book_2();
 	void import_book();
 
 	void find_note();

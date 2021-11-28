@@ -58,7 +58,7 @@ PhoneBook& PhoneBook::operator-(int del_numb) {
 void PhoneBook::edit_note(int edit_numb) {
 	string _name, _phone, _day, _month, _year, _comment, empty = "";
 	cout << endl << "  [Редактирование данных абонента]" << endl << "    Номер телефона: ";
-	getline(cin, _phone);
+	//getline(cin, _phone);
 	getline(cin, _phone);
 	_phone = checkNumber(_phone);
 	if (_phone != empty)	pointer[edit_numb - 1].setPhone(_phone);
@@ -166,38 +166,38 @@ void PhoneBook::export_book() {
 		}
 }
 
-//void PhoneBook::export_book_2() {
-//	string file_name;
-//	cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
-//	file_name = in(file_name);
-//	while (1) {
-//		if (!(file_name.find(".txt") + 1 || file_name.find(".dat") + 1 || file_name.find(".csv") + 1)) { cout << "Неверный тип файла" << endl << "[.txt / .dat / .csv]" << endl; }
-//		else if (file_name.length() >= 255 || file_name.length() <= 4) { cout << "Недопустимая длина имени файла" << endl; }
-//		else if ((file_name.find("<") + 1)) { cout << "Недопустимые символы в имени файла" << endl; }
-//		else break;
-//		cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
-//		getline(cin, file_name);
-//	}
-//	ofstream fout(file_name);		// запись в файл
-//	if (!fout.is_open())										// если файл не открыт
-//		cout << "Файл не может быть открыт!" << endl;		// сообщить об этом
-//	else {
-//		sort_book();
-//		for (int i = 0; i <= getNumb() - 1; i++) {
-//			fout << " - Абонент " << i + 1 << ":" << endl;
-//			fout << "  Номер телефона: " << getPointer()[i].getPhone() << endl;
-//			fout << "  ФИО: " << getPointer()[i].getName() << endl;
-//			fout << "  Дата рождения: " << endl; 
-//			fout << "    День: " << getPointer()[i].getDay() << endl;
-//			fout << "    Месяц: " << getPointer()[i].getMonth() << endl;
-//			fout << "    Год: " << getPointer()[i].getYear() << endl;
-//			fout << "  Комментарий: " << getPointer()[i].getComment() << endl;
-//		}
-//		
-//		fout.close();
-//		cout << "Данные сохранены в " << file_name << endl;
-//	}
-//}
+void PhoneBook::export_book_2() {
+	string file_name;
+	cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
+	file_name = in(file_name);
+	while (1) {
+		if (!(file_name.find(".txt") + 1 || file_name.find(".dat") + 1 || file_name.find(".csv") + 1)) { cout << "Неверный тип файла" << endl << "[.txt / .dat / .csv]" << endl; }
+		else if (file_name.length() >= 255 || file_name.length() <= 4) { cout << "Недопустимая длина имени файла" << endl; }
+		else if ((file_name.find("<") + 1)) { cout << "Недопустимые символы в имени файла" << endl; }
+		else break;
+		cout << "Введите имя файла [формат имя.тип]: " << endl << "  ";
+		getline(cin, file_name);
+	}
+	ofstream fout(file_name);		// запись в файл
+	if (!fout.is_open())										// если файл не открыт
+		cout << "Файл не может быть открыт!" << endl;		// сообщить об этом
+	else {
+		sort_book();
+		for (int i = 0; i <= getNumb() - 1; i++) {
+			fout << " - Абонент " << i + 1 << ":" << endl;
+			fout << "  Номер телефона: " << getPointer()[i].getPhone() << endl;
+			fout << "  ФИО: " << getPointer()[i].getName() << endl;
+			fout << "  Дата рождения: " << endl; 
+			fout << "    День: " << getPointer()[i].getDay() << endl;
+			fout << "    Месяц: " << getPointer()[i].getMonth() << endl;
+			fout << "    Год: " << getPointer()[i].getYear() << endl;
+			fout << "  Комментарий: " << getPointer()[i].getComment() << endl;
+		}
+		
+		fout.close();
+		cout << "Данные сохранены в " << file_name << endl;
+	}
+}
 
 void PhoneBook::import_book()
 {
